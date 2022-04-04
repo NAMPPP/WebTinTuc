@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE tiles-definitions PUBLIC  
+      "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  
+      "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<!-- Base Define -->
+	<definition name="base.definition"
+		template="/WEB-INF/pages/layouts/classic.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header"
+			value="/WEB-INF/pages/basefragments/web/_header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer"
+			value="/WEB-INF/pages/basefragments/web/_footer.jsp" />
+	</definition>
+	
+	<definition name="base.definition.admin"
+		template="/WEB-INF/pages/layouts/classic2.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header"
+			value="/WEB-INF/pages/basefragments/admin/_header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer"
+			value="/WEB-INF/pages/basefragments/admin/_footer.jsp" />
+	</definition>
+
+	<!-- Home Page -->
+	<definition name="homePage" extends="base.definition">
+		<put-attribute name="title" value="Home Page" />
+		<put-attribute name="body"
+			value="/WEB-INF/pages/bodyfragments/web/_home.jsp" />
+	</definition>
+	
+	<!-- Detail Page -->
+	<definition name="detailPage" extends="base.definition">
+		<put-attribute name="title" value="Detail Us" />
+		<put-attribute name="body"
+			value="/WEB-INF/pages/bodyfragments/web/_detail.jsp" />
+	</definition>
+
+	<!-- ContactUs Page -->
+	<definition name="contactusPage" extends="base.definition">
+		<put-attribute name="title" value="Contact Us" />
+		<put-attribute name="body"
+			value="/WEB-INF/pages/bodyfragments/web/_contactus.jsp" />
+	</definition>
+	
+	<!-- Category Page(id) -->
+	<definition name="categoryPage" extends="base.definition">
+		<put-attribute name="title" value="Category Page" />
+		<put-attribute name="body"
+			value="/WEB-INF/pages/bodyfragments/web/_category.jsp" />
+	</definition>
+	
+</tiles-definitions>
