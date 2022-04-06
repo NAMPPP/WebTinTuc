@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE tiles-definitions PUBLIC  
+      "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  
+      "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<!-- Base Define Web -->
+	<definition name="base.definition"
+		template="/WEB-INF/pages/layouts/classic.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header"
+			value="/WEB-INF/pages/basefragments/web/_header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer"
+			value="/WEB-INF/pages/basefragments/web/_footer.jsp" />
+	</definition>
+	
+	
+	<!-- Home Page -->
+	<definition name="homePage" extends="base.definition">
+		<put-attribute name="title" value="Home Page" />
+		<put-attribute name="body"
+			value="/WEB-INF/pages/bodyfragments/web/_home.jsp" />
+	</definition>
+	
+	<!-- Detail Page -->
+	<definition name="detailPage" extends="base.definition">
+		<put-attribute name="title" value="Detail Us" />
+		<put-attribute name="body"
+			value="/WEB-INF/pages/bodyfragments/web/_detail.jsp" />
+	</definition>
+
+	<!-- ContactUs Page -->
+	<definition name="contactusPage" extends="base.definition">
+		<put-attribute name="title" value="Contact Us" />
+		<put-attribute name="body"
+			value="/WEB-INF/pages/bodyfragments/web/_contactus.jsp" />
+	</definition>
+	
+	<!-- Category Page(id) -->
+	<definition name="categoryPage" extends="base.definition">
+		<put-attribute name="title" value="Category Page" />
+		<put-attribute name="body"
+			value="/WEB-INF/pages/bodyfragments/web/_category.jsp" />
+	</definition>
+	
+	<!--  Login -->
+	<definition name="loginPage"
+		template="/WEB-INF/pages/bodyfragments/admin/_login.jsp">
+		<put-attribute name="title" value="Admin Page" />
+	</definition>
+	<!--  register -->
+	<definition name="registerPage"
+		template="/WEB-INF/pages/bodyfragments/admin/_register.jsp">
+		<put-attribute name="title" value="register Page" />
+	</definition>
+	<!--  forgotPassword -->
+	<definition name="forgotPassword"
+		template="/WEB-INF/pages/bodyfragments/admin/_forgot-password.jsp">
+		<put-attribute name="title" value="forgot-password" />
+	</definition>
+	<!--  recoverPassword -->
+	<definition name="recoverPassword"
+		template="/WEB-INF/pages/bodyfragments/admin/_recover-password.jsp">
+		<put-attribute name="title" value="recover-password" />
+	</definition>
+	
+	
+	
+	<!-- Base Define Admin -->
+	<definition name="base.definition.admin"
+		template="/WEB-INF/pages/layouts/classic2.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header"
+			value="/WEB-INF/pages/basefragments/admin/_header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer"
+			value="/WEB-INF/pages/basefragments/admin/_footer.jsp" />
+	</definition>
+		
+	<!-- Admin Page() -->
+	<definition name="adminPage" extends="base.definition.admin">
+		<put-attribute name="title" value="Admin Page" />
+		<put-attribute name="body"
+			value="/WEB-INF/pages/bodyfragments/admin/_home.jsp" />
+	</definition>
+	
+	
+	
+</tiles-definitions>
