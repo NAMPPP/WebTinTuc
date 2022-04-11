@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.servlet.ModelAndView;
 
 import com.da.st5.dao.CategoryDAO;
 import com.da.st5.dao.ContentDAO;
@@ -23,6 +23,7 @@ import com.da.st5.model.CategoryModel;
 import com.da.st5.model.ContentModel;
 import com.da.st5.model.ImagesModel;
 import com.da.st5.model.NewsModel;
+import com.da.st5.model.UserModel;
 
 
 
@@ -47,19 +48,7 @@ public class MainController {
 
     
     @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
-	public String homePage(ModelMap model) {
-//    	String pageStr = rq.getParameter("page");
-//    	String maxPageItemStr = rq.getParameter("maxPageItem");
-//    	if (pageStr !=null) {
-//    		newsModel.setPage(Integer.parseInt(pageStr));	
-//		}else {
-//			newsModel.setPage(1);
-//		}
-//    	if (maxPageItemStr !=null) {
-//    		newsModel.setMaxPageItem(Integer.parseInt(maxPageItemStr));
-//		}
-//    	Integer offset = (newsModel.getPage()-1)*newsModel.getMaxPageItem();
-    	
+	public String homePage(ModelMap model) {	
     	List<CategoryModel> listcate = categoryDAO.listCategory();
     	List<NewsModel> listnews = newsDAO.listNews();
     	List<NewsModel> listNewsHot = newsDAO.listNewsHot();
@@ -78,7 +67,6 @@ public class MainController {
 	public String detailNews(ModelMap model ,@PathVariable(name="id") int id) {
     	List<CategoryModel> listcate = categoryDAO.listCategory();
     	model.addAttribute("category", listcate);
-    	
     	List<NewsModel> detailNews = newsDAO.detailNews(id);
     	List<ContentModel> contentNews = contentDAO.listContentByNew(id);
     	List<ImagesModel> imgNews = imagesDAO.listImgByNew(id);
@@ -117,33 +105,88 @@ public class MainController {
         return "adminPage";
     }
     
+  //----------listNewsportal---------------
+    @RequestMapping(value = { "/adminPage/listNewsportal/" }, method = RequestMethod.GET)
+    public String listNewsportal(ModelMap model) {
+    	List<NewsModel> listnews = newsDAO.listNews();
+    	model.addAttribute("news", listnews);
+        return "listNewsportal";
+    }
     
+    //----------detailAdmin---------------
+    @RequestMapping(value = {"/adminPage/listNewsportal/{id}/" },method = RequestMethod.GET)
+	public String detailNewsadmid(ModelMap model ,@PathVariable(name="id") int id) {
+    	List<NewsModel> detailNews = newsDAO.detailNews(id);
+    	List<CategoryModel> listcate = categoryDAO.listCategory();
+    	
+    	
+    	model.addAttribute("category", listcate);
+    	model.addAttribute("news", detailNews.get(0));
+    	return "detailAdmin";
+	}
+    
+  //----------add News---------------
+    @RequestMapping(value = {"/adminPage/addNew/" },method = RequestMethod.GET)
+	public String addNew(ModelMap model) {
+    	
+    	List<CategoryModel> listcate = categoryDAO.listCategory();
+    	
+    	
+    	model.addAttribute("category", listcate);
+    	return "addNew";
+	}
+    
+  //----------listCategory---------------
+    @RequestMapping(value = { "/adminPage/listCategory/" }, method = RequestMethod.GET)
+    public String listCategory(ModelMap model) {
+    	
+    	List<CategoryModel> listcate = categoryDAO.listCategory();
+    	model.addAttribute("category", listcate);
+        return "listCategory";
+    }
+    
+    //----------loginPage---------------
     @RequestMapping(value = { "/loginPage/" }, method = RequestMethod.GET)
-    public String init(Model model) {
-        //model.addAttribute("msg", "Please Enter Your Login Details");
-        return "loginPage";
-      }
-//    @RequestMapping(method = RequestMethod.POST)
-//    public String submit(Model model, @ModelAttribute("loginBean") UserModel userModel) {
-//      if (userModel != null && userModel.getUserName() != null & userModel.getPassword() != null) {
-//        if (userModel.getUserName().equals("chandra") && userModel.getPassword().equals("chandra123")) {
-//          model.addAttribute("msg", userModel.getUserName());
-//          return "success";
-//        } else {
-//          model.addAttribute("error", "Invalid Details");
-//          return "loginPage";
-//        }
-//      } else {
-//        model.addAttribute("error", "Please enter Details");
-//        return "loginPage";
-//      }
-//    }
+    public ModelAndView loginPage() {
+    	ModelAndView mv= new ModelAndView("loginPage");
+    	
+    	mv.addObject("user",new UserModel() );
+        return mv;
+    }
+    @RequestMapping(value ="/loginPage/" , method = RequestMethod.POST)
+    public ModelAndView CheckAcc(@ModelAttribute("user") UserModel user) {
+    	ModelAndView mv= new ModelAndView("loginPage");
+    	ModelAndView mv1= new ModelAndView("adminPage");
+    	
+    	UserModel userModel = userDAO.user(user);
+    	if (userModel != null) {
+    		return mv1;
+		}
+    	
+        return mv;
+    }
+
     
-    
-    
+  //----------registerPage---------------
     @RequestMapping(value = { "/registerPage/" }, method = RequestMethod.GET)
-    public String registerPage(ModelMap model) {
-        return "registerPage";
+    public ModelAndView registerPage() {
+    	ModelAndView mv= new ModelAndView("registerPage");
+    	
+    	mv.addObject("user",new UserModel() );
+        return mv;
+    }
+    
+    @RequestMapping(value ="/registerPage/" , method = RequestMethod.POST)
+    public ModelAndView CreateAcc(@ModelAttribute("user") UserModel user) {
+    	ModelAndView mv= new ModelAndView("loginPage");
+    	int count = userDAO.adduser(user);
+    	if (count>0) {
+    		mv.addObject("status","succes");
+    		
+		}else {
+			mv.addObject("status","unsucces");
+		}
+        return mv;
     }
     
     @RequestMapping(value = { "/forgotPassword/" }, method = RequestMethod.GET)

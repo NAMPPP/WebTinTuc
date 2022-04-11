@@ -1,5 +1,4 @@
 package com.da.st5.config;
-
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +31,6 @@ public class ApplicationContextConfig {
    @Autowired
    private Environment env;
 
-//   @Bean(name = "viewResolver")
-//   public InternalResourceViewResolver getViewResolver() {
-//       InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-//
-//       viewResolver.setPrefix("/WEB-INF/pages/");
-//       viewResolver.setSuffix(".jsp");
-//       
-//       return viewResolver;
-//   }
    @Bean(name = "viewResolver")
 	public ViewResolver getViewResolver1() {
 		UrlBasedViewResolver viewResolver = new UrlBasedViewResolver();

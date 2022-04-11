@@ -45,7 +45,7 @@
 						<tr>
 							<th style="width: 1%">NewsID</th>
 							<th style="width: 25%">Title</th>
-							<th style="width: 15%">thumbNail</th>
+							<th style="width: 15%" class="text-center">thumbNail</th>
 							<th style="width: 1%">Category</th>
 							<th style="width: 8%" class="text-center">Status</th>
 							<th style="width: 20%"></th>
@@ -61,13 +61,13 @@
 								<td>
 									<ul class="text-center">
 										<img class="profile-user-img img-fluid img-circle"
-											src="<c:url value="${news.thumbnail}"/>" alt="">
+											src="${news.thumbnail}" alt="">
 									</ul>
 								</td>
-								<td><a> ${news.categoryid} </a></td>
+								<td class="text-center"><a> ${news.categoryid} </a></td>
 								<td class="project-state"><span class="badge badge-success">Success</span></td>
 								<td class="project-actions text-right"><a
-									class="btn btn-primary btn-sm" href="#"> <i
+									class="btn btn-primary btn-sm" href="/ST5/adminPage/listNewsportal/${news.id}/"> <i
 										class="fas fa-folder"> </i> View
 								</a> <a class="btn btn-info btn-sm" href="#"> <i
 										class="fas fa-pencil-alt"> </i> Edit

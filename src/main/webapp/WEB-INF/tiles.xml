@@ -85,6 +85,33 @@
 			value="/WEB-INF/pages/bodyfragments/admin/_home.jsp" />
 	</definition>
 	
+	<!-- Admin Newsportal -->
+	<definition name="listNewsportal" extends="base.definition.admin">
+		<put-attribute name="title" value="List Newsportal" />
+		<put-attribute name="body"
+			value="/WEB-INF/pages/bodyfragments/admin/_listNewsportal.jsp" />
+	</definition>
+	
+	<!-- listCategory -->
+	<definition name="listCategory" extends="base.definition.admin">
+		<put-attribute name="title" value="List Category" />
+		<put-attribute name="body"
+			value="/WEB-INF/pages/bodyfragments/admin/_listCategory.jsp" />
+	</definition>
+	
+		<!-- Detail News Admin-->
+	<definition name="detailAdmin" extends="base.definition.admin">
+		<put-attribute name="title" value="Detail Us" />
+		<put-attribute name="body"
+			value="/WEB-INF/pages/bodyfragments/admin/_detailNew.jsp" />
+	</definition>
+	
+	<!-- add News Admin-->
+	<definition name="addNew" extends="base.definition.admin">
+		<put-attribute name="title" value="Add New" />
+		<put-attribute name="body"
+			value="/WEB-INF/pages/bodyfragments/admin/_addNew.jsp" />
+	</definition>
 	
 	
 </tiles-definitions>

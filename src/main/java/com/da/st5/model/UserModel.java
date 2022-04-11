@@ -1,6 +1,7 @@
 package com.da.st5.model;
 
-public class UserModel extends AbstractModel<UserModel>{
+public class UserModel {
+	private int id;
 	private String userName;
 	private String password;
 	private String fullName;
@@ -18,13 +19,9 @@ public class UserModel extends AbstractModel<UserModel>{
         this.fullName = fullName;
         this.status = status;
         this.roleid = roleid;
-        this.setId(id);
+        this.id =id;
 	}
-	@Override
-	public String toString() {
-		return "UserModel [userName=" + userName + ", password=" + password + ", fullName=" + fullName + ", status="
-				+ status + ", roleid=" + roleid + "]";
-	}
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -56,6 +53,14 @@ public class UserModel extends AbstractModel<UserModel>{
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 

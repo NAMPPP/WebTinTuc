@@ -58,6 +58,22 @@ public class NewsDAO extends JdbcDaoSupport{
         return list;
     }
     
+    public void update(int id) {
+        String sql = NewsMapper.BASE_SQL_GB ;
+
+        Object[] params = new Object[] {};
+        NewsMapper mapper = new NewsMapper();
+
+        NewsModel list = (NewsModel) this.getJdbcTemplate().query(sql, params, mapper);
+    }
+    public void insert(NewsModel news) {
+        String sql = "Insert into news (title,thumbnail,shortdescription,content,categoryid,createddate,createdby) "//
+                + " values (?,?,?,?,?,?,?) ";
+        this.getJdbcTemplate().update(sql, news);
+    }
+
+    
+    
     
     
     
