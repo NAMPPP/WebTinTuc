@@ -91,19 +91,23 @@
 		<put-attribute name="body"
 			value="/WEB-INF/pages/bodyfragments/admin/_listNewsportal.jsp" />
 	</definition>
-	
 	<!-- listCategory -->
 	<definition name="listCategory" extends="base.definition.admin">
 		<put-attribute name="title" value="List Category" />
 		<put-attribute name="body"
 			value="/WEB-INF/pages/bodyfragments/admin/_listCategory.jsp" />
 	</definition>
-	
-		<!-- Detail News Admin-->
+	<!-- Detail News Admin-->
 	<definition name="detailAdmin" extends="base.definition.admin">
 		<put-attribute name="title" value="Detail Us" />
 		<put-attribute name="body"
 			value="/WEB-INF/pages/bodyfragments/admin/_detailNew.jsp" />
+	</definition>
+	<!-- View News Admin-->
+	<definition name="viewNew" extends="base.definition.admin">
+		<put-attribute name="title" value="Detail Us" />
+		<put-attribute name="body"
+			value="detailPage" />
 	</definition>
 	
 	<!-- add News Admin-->

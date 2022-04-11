@@ -33,6 +33,7 @@
 		<div class="card">
 			<div class="card-body login-card-body">
 				<p class="login-box-msg">Sign in to start your session</p>
+				
 				<form:form action="../loginPage/" modelAttribute="user"
 					method="POST">
 					<div class="input-group mb-3">

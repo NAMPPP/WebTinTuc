@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.da.st5.mapper.NewsMapper;
 import com.da.st5.model.NewsModel;
+import com.da.st5.model.UserModel;
 
 @Repository
 @Transactional
@@ -66,11 +67,15 @@ public class NewsDAO extends JdbcDaoSupport{
 
         NewsModel list = (NewsModel) this.getJdbcTemplate().query(sql, params, mapper);
     }
-    public void insert(NewsModel news) {
-        String sql = "Insert into news (title,thumbnail,shortdescription,content,categoryid,createddate,createdby) "//
-                + " values (?,?,?,?,?,?,?) ";
-        this.getJdbcTemplate().update(sql, news);
+    public int addNews(NewsModel news) {
+    	
+        String sql = "INSERT INTO news(id,title,thumbnail,shortdescription,content,categoryid,createddate,createdby) "
+        		+ "VALUES ("+news.getId()+",'"+news.getTitle()+"','"+news.getThumbnail()+"','"+news.getShortDescription()+"',"
+        				+ "'"+news.getContent()+"',"+news.getCategoryid()+",'"+news.getCreatedDate()+"','"+news.getCreatedBy()+"')";
+        int insert = this.getJdbcTemplate().update(sql);
+        return insert;
     }
+
 
     
     

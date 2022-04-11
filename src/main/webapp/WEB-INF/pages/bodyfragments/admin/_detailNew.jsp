@@ -30,73 +30,61 @@
 				</div>
 				<!-- /.card-header -->
 				<!-- form start -->
-				<form>
+				<form:form action="../updateNew/" modelAttribute="updateNews" method="POST">
 					<div class="card-body">
 						<div class="form-group">
 							<label for="id">ID</label> <label
-								type="label" class="form-control" id="id">${news.id }</label>
+								type="label" class="form-control" id="id">${news.id}</label>
 						</div>
 						<div class="form-group">
-							<label for="title">Title</label> <input
-								type="text" class="form-control" id="title"
-								value="${news.title }">
+							<label for="title">Title</label> 
+							<form:input type="text" class="form-control" 
+							value="${news.title}" path="title"/>
 						</div>
 						<div class="form-group">
-							<label for="shortDescription">ShortDescription</label> <input
-								type="text" class="form-control" id="shortDescription"
-								value="${news.shortDescription }">
+							<label for="shortDescription">ShortDescription</label>
+							<form:input type="text" class="form-control"
+								value="${news.shortDescription}"  path="shortDescription"/>
 						</div>
 						<div class="form-group">
 							<label for="thumbNail">ThumbNail</label>
-							<div class="input-group">
-								<div class="custom-file">
-									<input type="file" class="custom-file-input"
-										id="exampleInputFile"> <label
-										class="custom-file-label" for="exampleInputFile"
-										>${news.thumbnail }</label>
-								</div>
-								<div class="input-group-append">
-									<span class="input-group-text">Upload</span>
-								</div>
-							</div>
+							<form:input type="text" class="form-control"
+								 value="${news.thumbnail}" path="thumbnail"/>
 						</div>
 						<div class="col-md-12">
 							<div class="card card-outline card-info">
 								<div class="card-header">
-									<h3 class="card-title">Summernote</h3>
+									<h3 class="card-title">Content</h3>
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body">
-									<textarea id="summernote" style="display: none;">
-										${news.content }
-              						</textarea>
+									<form:textarea  value="" id="summernote" style="display: none;" path="content" />${news.content}
 								</div>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="cars">Category</label> <select name="cars" id="cars">
+							<label for="cars">Category</label>
+							<form:select path="categoryid">
 								<c:forEach var="category" items="${category}" varStatus="status">
-									
-										<option value="${category.id}">${category.name}</option>
+										<form:option value="${category.id}" label="${category.name}"/>
 								</c:forEach>
-							</select>
+							</form:select>
 						</div>
 						<div class="form-group">
-							<label for="title">CreatedDate</label> <label
-								type="" class="form-control" id="createdDate"
-								>${news.createdDate }</label>
+							<label for="title">CreatedDate</label>
+							<form:label class="form-control" id="createdDate" path="createdDate">${news.createdDate}</form:label>
 						</div>
 						<div class="form-group">
-							<label for="title">CreatedBy</label> <label
-								type="" class="form-control" id="createdBy"
-								>${news.createdBy }</label>
+							<label for="title">CreatedBy</label>
+							
+							<form:label class="form-control" id="createdBy" path="createdBy">${news.createdBy}</form:label>
 						</div>
 						<!-- /.card-body -->
 
 						<div class="card-footer">
 							<button type="submit" class="btn btn-primary">Submit</button>
 						</div>
-				</form>
+				</form:form>
 			</div>
 		</div>
 	</section>

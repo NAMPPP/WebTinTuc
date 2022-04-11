@@ -67,9 +67,9 @@
 								<td class="text-center"><a> ${news.categoryid} </a></td>
 								<td class="project-state"><span class="badge badge-success">Success</span></td>
 								<td class="project-actions text-right"><a
-									class="btn btn-primary btn-sm" href="/ST5/adminPage/listNewsportal/${news.id}/"> <i
+									class="btn btn-primary btn-sm" href="/ST5/adminPage/listNewsportal/view/${news.id}/"> <i
 										class="fas fa-folder"> </i> View
-								</a> <a class="btn btn-info btn-sm" href="#"> <i
+								</a> <a class="btn btn-info btn-sm" href="/ST5/adminPage/listNewsportal/detail/${news.id}/"> <i
 										class="fas fa-pencil-alt"> </i> Edit
 								</a> <a class="btn btn-danger btn-sm" href="#"> <i
 										class="fas fa-trash"> </i> Delete

@@ -1,5 +1,6 @@
 package com.da.st5.controller;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -112,29 +113,69 @@ public class MainController {
     	model.addAttribute("news", listnews);
         return "listNewsportal";
     }
+    //----------view new admin---------------
+    @RequestMapping(value = {"/adminPage/listNewsportal/view/{id}/" },method = RequestMethod.GET)
+	public String viewNew(ModelMap model ,@PathVariable(name="id") int id) {
+    	List<CategoryModel> listcate = categoryDAO.listCategory();
+    	model.addAttribute("category", listcate);
+    	List<NewsModel> detailNews = newsDAO.detailNews(id);
+    	List<ContentModel> contentNews = contentDAO.listContentByNew(id);
+    	List<ImagesModel> imgNews = imagesDAO.listImgByNew(id);
+    	model.addAttribute("content", contentNews.get(0));
+    	model.addAttribute("img", imgNews.get(0));
+    	model.addAttribute("news", detailNews.get(0));
+    	
+    	return "viewNew";
+	}
     
-    //----------detailAdmin---------------
-    @RequestMapping(value = {"/adminPage/listNewsportal/{id}/" },method = RequestMethod.GET)
-	public String detailNewsadmid(ModelMap model ,@PathVariable(name="id") int id) {
+    //----------detail new Admin---------------
+    @RequestMapping(value = {"/adminPage/listNewsportal/detail/{id}/" },method = RequestMethod.GET)
+	public ModelAndView detailNewsadmid(ModelMap model ,@PathVariable(name="id") int id) {
+    	ModelAndView mv= new ModelAndView("detailAdmin");
     	List<NewsModel> detailNews = newsDAO.detailNews(id);
     	List<CategoryModel> listcate = categoryDAO.listCategory();
-    	
-    	
     	model.addAttribute("category", listcate);
     	model.addAttribute("news", detailNews.get(0));
-    	return "detailAdmin";
+    	mv.addObject("updateNews",new NewsModel());
+    	return mv;
 	}
+//    @RequestMapping(value ="/adminPage/listNewsportal/detail/{id}/" , method = RequestMethod.POST)
+//    public ModelAndView updateNew(@ModelAttribute("updateNews") NewsModel news) {
+//    	System.out.println(news.getCreatedDate());
+//    	ModelAndView mv= new ModelAndView("detailAdmin");
+//    	int count = newsDAO.addNews(news);
+//    	if (count>0) {
+//    		mv.addObject("statusAddNew","succes");
+//    		
+//		}else {
+//			mv.addObject("statusAddNew","unsucces");
+//		}
+//        return mv;
+//    }
     
   //----------add News---------------
     @RequestMapping(value = {"/adminPage/addNew/" },method = RequestMethod.GET)
-	public String addNew(ModelMap model) {
-    	
+	public ModelAndView addNew(ModelMap model) {
+    	ModelAndView mv= new ModelAndView("addNew");
     	List<CategoryModel> listcate = categoryDAO.listCategory();
-    	
-    	
     	model.addAttribute("category", listcate);
-    	return "addNew";
+    	model.addAttribute("datenow", java.time.LocalDate.now());
+    	mv.addObject("news",new NewsModel());
+    	return mv;
 	}
+    @RequestMapping(value ="/adminPage/addNew/" , method = RequestMethod.POST)
+    public ModelAndView CreateAcc(@ModelAttribute("news") NewsModel news) {
+    	System.out.println(news.getCreatedDate());
+    	ModelAndView mv= new ModelAndView("addNew");
+    	int count = newsDAO.addNews(news);
+    	if (count>0) {
+    		mv.addObject("statusAddNew","succes");
+    		
+		}else {
+			mv.addObject("statusAddNew","unsucces");
+		}
+        return mv;
+    }
     
   //----------listCategory---------------
     @RequestMapping(value = { "/adminPage/listCategory/" }, method = RequestMethod.GET)
@@ -157,13 +198,21 @@ public class MainController {
     public ModelAndView CheckAcc(@ModelAttribute("user") UserModel user) {
     	ModelAndView mv= new ModelAndView("loginPage");
     	ModelAndView mv1= new ModelAndView("adminPage");
-    	
     	UserModel userModel = userDAO.user(user);
     	if (userModel != null) {
-    		return mv1;
+    		if (userModel.getStatus()==1) {
+    			return mv1;
+			}
+    		if (userModel.getStatus()==2) {
+    			return mv1;
+			}else {
+				mv.addObject("loginFail","Account is waiting for approval");
+				return mv;
+			}
+		}else {
+			mv.addObject("loginFail","Wrong account or password");
+	        return mv;
 		}
-    	
-        return mv;
     }
 
     
