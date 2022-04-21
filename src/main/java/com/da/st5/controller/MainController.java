@@ -1,8 +1,8 @@
 package com.da.st5.controller;
 
-import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -53,26 +53,17 @@ public class MainController {
     	List<CategoryModel> listcate = categoryDAO.listCategory();
     	List<NewsModel> listnews = newsDAO.listNews();
     	List<NewsModel> listNewsHot = newsDAO.listNewsHot();
-    	NewsModel firstNewsHot = newsDAO.listNewsHot().get(0);
-    	System.out.print(listNewsHot.get(2).getId());
-    	System.out.print(firstNewsHot);
-    	model.addAttribute("firstNewsHot", firstNewsHot);
-    	model.addAttribute("secondNewsHot", listNewsHot.get(1));
-    	model.addAttribute("lastNewsHot", listNewsHot.get(2));
+    	
+    	model.addAttribute("listNewsHot", listNewsHot);
     	model.addAttribute("news", listnews);
         model.addAttribute("category", listcate);
 		return "homePage";
     }
-    
     @RequestMapping(value = {"/{id}/" },method = RequestMethod.GET)
 	public String detailNews(ModelMap model ,@PathVariable(name="id") int id) {
     	List<CategoryModel> listcate = categoryDAO.listCategory();
     	model.addAttribute("category", listcate);
     	List<NewsModel> detailNews = newsDAO.detailNews(id);
-    	List<ContentModel> contentNews = contentDAO.listContentByNew(id);
-    	List<ImagesModel> imgNews = imagesDAO.listImgByNew(id);
-    	model.addAttribute("content", contentNews.get(0));
-    	model.addAttribute("img", imgNews.get(0));
     	model.addAttribute("news", detailNews.get(0));
     	return "detailPage";
 	}
@@ -81,8 +72,6 @@ public class MainController {
     public String contactusPage(Model model) {
     	List<CategoryModel> listcate = categoryDAO.listCategory();
     	model.addAttribute("category", listcate);
-//    	List<NewsModel> list = newsDAO.listNews();
-//        model.addAttribute("news", list);
         return "contactusPage";
     }
     @RequestMapping(value = { "/categoryPage/{id}/" }, method = RequestMethod.GET)
@@ -102,7 +91,6 @@ public class MainController {
     //----------adminPage---------------
     @RequestMapping(value = { "/adminPage/" }, method = RequestMethod.GET)
     public String adminPage(ModelMap model) {
-    	
         return "adminPage";
     }
     
@@ -130,28 +118,28 @@ public class MainController {
     
     //----------detail new Admin---------------
     @RequestMapping(value = {"/adminPage/listNewsportal/detail/{id}/" },method = RequestMethod.GET)
-	public ModelAndView detailNewsadmid(ModelMap model ,@PathVariable(name="id") int id) {
+	public ModelAndView detailNewsadmid(@PathVariable(name="id") int id) {
     	ModelAndView mv= new ModelAndView("detailAdmin");
     	List<NewsModel> detailNews = newsDAO.detailNews(id);
     	List<CategoryModel> listcate = categoryDAO.listCategory();
-    	model.addAttribute("category", listcate);
-    	model.addAttribute("news", detailNews.get(0));
+    	mv.addObject("category", listcate);
+    	mv.addObject("news", detailNews.get(0));
     	mv.addObject("updateNews",new NewsModel());
     	return mv;
 	}
-//    @RequestMapping(value ="/adminPage/listNewsportal/detail/{id}/" , method = RequestMethod.POST)
-//    public ModelAndView updateNew(@ModelAttribute("updateNews") NewsModel news) {
-//    	System.out.println(news.getCreatedDate());
-//    	ModelAndView mv= new ModelAndView("detailAdmin");
-//    	int count = newsDAO.addNews(news);
-//    	if (count>0) {
-//    		mv.addObject("statusAddNew","succes");
-//    		
-//		}else {
-//			mv.addObject("statusAddNew","unsucces");
-//		}
-//        return mv;
-//    }
+    @RequestMapping(value ="/adminPage/listNewsportal/detail/updateNew/" , method = RequestMethod.POST)
+    public ModelAndView updateNew(@ModelAttribute("updateNews") NewsModel news) {
+    	System.out.println(news.getId());
+    	ModelAndView mv= new ModelAndView("listNewsportal");
+    	int count = newsDAO.update(news);
+    	if (count>0) {
+    		mv.addObject("statusAddNew","succes");
+    		return mv;
+		}else {
+			mv.addObject("statusAddNew","unsucces");
+		}
+        return mv;
+    }
     
   //----------add News---------------
     @RequestMapping(value = {"/adminPage/addNew/" },method = RequestMethod.GET)
@@ -164,18 +152,30 @@ public class MainController {
     	return mv;
 	}
     @RequestMapping(value ="/adminPage/addNew/" , method = RequestMethod.POST)
-    public ModelAndView CreateAcc(@ModelAttribute("news") NewsModel news) {
-    	System.out.println(news.getCreatedDate());
+    public ModelAndView CreateNews(@ModelAttribute("news") NewsModel news) {
+    	System.out.println(news.getCreatedBy());
     	ModelAndView mv= new ModelAndView("addNew");
     	int count = newsDAO.addNews(news);
-    	if (count>0) {
+    	if (count>0){
     		mv.addObject("statusAddNew","succes");
-    		
 		}else {
 			mv.addObject("statusAddNew","unsucces");
 		}
         return mv;
     }
+  //----------delete News---------------
+    @RequestMapping(value = {"/adminPage/listNewsportal/delete/{id}/" },method = RequestMethod.GET)
+	public ModelAndView deleteNews(@PathVariable(name="id") int id) {
+    	ModelAndView mv= new ModelAndView("listNewsportal");
+    	int count = newsDAO.delete(id);
+    	if (count>0){
+    		mv.addObject("statusAddNew","succes");
+    		return mv;
+		}else {
+			mv.addObject("statusAddNew","unsucces");
+			return mv;
+		}
+	}
     
   //----------listCategory---------------
     @RequestMapping(value = { "/adminPage/listCategory/" }, method = RequestMethod.GET)
@@ -186,24 +186,35 @@ public class MainController {
         return "listCategory";
     }
     
+  //----------ContactUs Admin---------------
+    @RequestMapping(value = "/adminPage/contactUs/", method = RequestMethod.GET)
+	public ModelAndView contactUsAdmin() {
+    	ModelAndView mv= new ModelAndView("contactUsAdmin");
+    	List<UserModel> listUser = userDAO.listUser();
+    	mv.addObject("user", listUser);
+		return 	mv;
+	}
     //----------loginPage---------------
     @RequestMapping(value = { "/loginPage/" }, method = RequestMethod.GET)
     public ModelAndView loginPage() {
     	ModelAndView mv= new ModelAndView("loginPage");
-    	
     	mv.addObject("user",new UserModel() );
         return mv;
     }
     @RequestMapping(value ="/loginPage/" , method = RequestMethod.POST)
-    public ModelAndView CheckAcc(@ModelAttribute("user") UserModel user) {
+    public ModelAndView CheckAcc(HttpSession session,@ModelAttribute("user") UserModel user) {
     	ModelAndView mv= new ModelAndView("loginPage");
     	ModelAndView mv1= new ModelAndView("adminPage");
     	UserModel userModel = userDAO.user(user);
     	if (userModel != null) {
     		if (userModel.getStatus()==1) {
+    			System.out.print(user.getFullName());
+    			session.setAttribute("AdminInfo", user);
+    			
     			return mv1;
 			}
     		if (userModel.getStatus()==2) {
+    			session.setAttribute("AdminInfo", user);
     			return mv1;
 			}else {
 				mv.addObject("loginFail","Account is waiting for approval");
@@ -214,6 +225,15 @@ public class MainController {
 	        return mv;
 		}
     }
+  //----------Logout---------------
+    @RequestMapping(value = "/logout/", method = RequestMethod.POST)
+	public ModelAndView logOut(HttpSession session) {
+    	ModelAndView mv= new ModelAndView("redirect:loginPage");
+		session.removeAttribute("AdminInfo");
+		return 	mv;
+	}
+    
+    
 
     
   //----------registerPage---------------

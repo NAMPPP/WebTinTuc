@@ -10,55 +10,37 @@
 	<section class="section first-section">
 		<div class="container-fluid">
 			<div class="masonry-blog clearfix">
-				<div class="first-slot">
-					<div class="masonry-box post-media">
-						<img src="<c:url value='${firstNewsHot.thumbnail}'/>" alt=""
-							class="img-fluid">
-						<div class="shadoweffect">
-							<div class="shadow-desc">
-								<div class="blog-meta">
-									<span class="bg-orange"><a href="tech-category-01.html"
-										title="">Technology</a></span>
-									<h4>
-										<a href="tech-single.html" title="">${firstNewsHot.title}</a>
-									</h4>
-									<small><a href="tech-single.html" title="">${firstNewsHot.createdDate}</a></small>
-									<small><a href="tech-author.html" title="">by
-											${firstNewsHot.createdBy}</a></small>
-								</div>
-								<!-- end meta -->
-							</div>
-							<!-- end shadow-desc -->
-						</div>
-						<!-- end shadow -->
-					</div>
-					<!-- end post-media -->
-				</div>
 				<!-- end first-side -->
-				<div class="second-slot">
-					<div class="masonry-box post-media">
-						<img src="<c:url value='${secondNewsHot.thumbnail}'/>" alt=""
-							class="img-fluid">
-						<div class="shadoweffect">
-							<div class="shadow-desc">
-								<div class="blog-meta">
-									<span class="bg-orange"><a href="tech-category-01.html"
-										title="">Gadgets</a></span>
-									<h4>
-										<a href="tech-single.html" title="">${secondNewsHot.title}</a>
-									</h4>
-									<small><a href="tech-single.html" title="">${secondNewsHot.createdDate}</a></small>
-									<small><a href="tech-author.html" title="">by
-											${secondNewsHot.createdBy}</a></small>
+				<c:forEach var="listNewsHot" items="${listNewsHot}" begin="0" end="3">
+					<div class="second-slot">
+						<div class="masonry-box post-media">
+							<img src="<c:url value='${listNewsHot.thumbnail}'/>" alt=""
+								class="img-fluid">
+							<div class="shadoweffect">
+								<div class="shadow-desc">
+									<div class="blog-meta">
+										<c:forEach var="cate" items="${category}" varStatus="status">
+											<c:if test="${listNewsHot.categoryid ==cate.id }">
+												<span class="bg-orange"><a href="" title="">${cate.name}</a></span>
+											</c:if>
+										</c:forEach>
+										
+										<h4>
+											<a href="/ST5/${listNewsHot.id}/" title="">${listNewsHot.title}</a>
+										</h4>
+										<small><a href="/ST5/${listNewsHot.id}/" title="">${listNewsHot.createdDate}</a></small>
+										<small><a href="/ST5/${listNewsHot.id}/" title="">by
+												${listNewsHot.createdBy}</a></small>
+									</div>
+									<!-- end meta -->
 								</div>
-								<!-- end meta -->
+								<!-- end shadow-desc -->
 							</div>
-							<!-- end shadow-desc -->
+							<!-- end shadow -->
 						</div>
-						<!-- end shadow -->
+						<!-- end post-media -->
 					</div>
-					<!-- end post-media -->
-				</div>
+				</c:forEach>
 				<!-- end second-side -->
 			</div>
 			<!-- end masonry -->
@@ -98,8 +80,15 @@
 												<a href="/ST5/${dept.id}/" title="">${dept.title}</a>
 											</h4>
 											<p>${dept.shortDescription}</p>
-											<small class="firstsmall"><a class="bg-orange"
-												href="#" title="">Gadgets</a></small> <small><a href="#"
+											
+											<small class="firstsmall">
+												<c:forEach var="cate" items="${category}" varStatus="status">
+													<c:if test="${dept.categoryid ==cate.id }">
+														<a class="bg-orange" href="#" title="">${cate.name}</a>
+									
+													</c:if>
+												</c:forEach> 
+											</small> <small><a href="#"
 												title="">${dept.createdDate}</a></small> <small><a href="#"
 												title="">${dept.createdBy}</a></small> <small> </small>
 										</div>
@@ -124,9 +113,6 @@
 					<div class="sidebar">
 						<div class="widget">
 							<div class="banner-spot clearfix">
-								<div class="banner-img">
-									<img src="upload/banner_07.jpg" alt="" class="img-fluid">
-								</div>
 								<!-- end banner-img -->
 							</div>
 							<!-- end banner -->
@@ -138,8 +124,8 @@
 							<div class="trend-videos">
 								<div class="blog-box">
 									<div class="post-media">
-										<a href="tech-single.html" title=""> <img
-											src="upload/tech_video_01.jpg" alt="" class="img-fluid">
+										<a href="#" title=""> <img
+											src="https://cdn.24h.com.vn/upload/2-2022/images/2022-04-20/cd_nivea_nha-1650402179-liverpool_manutd1.gif" alt="" class="img-fluid">
 											<div class="hovereffect">
 												<span class="videohover"></span>
 											</div> <!-- end hover -->
@@ -148,8 +134,7 @@
 									<!-- end media -->
 									<div class="blog-meta">
 										<h4>
-											<a href="tech-single.html" title="">We prepared the best
-												10 laptop presentations for you</a>
+											<a href="#" title="">Video bóng đá Liverpool - MU: Sức ép kinh hoàng, "tam tấu" chói sáng (Đá bù vòng 30 Ngoại hạng Anh)</a>
 										</h4>
 									</div>
 									<!-- end meta -->
@@ -160,8 +145,8 @@
 
 								<div class="blog-box">
 									<div class="post-media">
-										<a href="tech-single.html" title=""> <img
-											src="upload/tech_video_02.jpg" alt="" class="img-fluid">
+										<a href="#" title=""> <img
+											src="https://cdn.24h.com.vn/upload/2-2022/images/2022-04-19/1650373135-hagl_full.gif" alt="" class="img-fluid">
 											<div class="hovereffect">
 												<span class="videohover"></span>
 											</div> <!-- end hover -->
@@ -170,8 +155,7 @@
 									<!-- end media -->
 									<div class="blog-meta">
 										<h4>
-											<a href="tech-single.html" title="">We are guests of ABC
-												Design Studio - Vlog</a>
+											<a href="#" title="">Video bóng đá HAGL - Sydney FC: Tuyệt phẩm của Văn Thanh, chiến tích lịch sử (AFC Champions League)</a>
 										</h4>
 									</div>
 									<!-- end meta -->
@@ -182,8 +166,8 @@
 
 								<div class="blog-box">
 									<div class="post-media">
-										<a href="tech-single.html" title=""> <img
-											src="upload/tech_video_03.jpg" alt="" class="img-fluid">
+										<a href="#" title=""> <img
+											src="https://icdn.24h.com.vn/upload/2-2022/images/2022-04-18/image_dai_dien_gifdk-1650252819-509-width640height480.gif" alt="" class="img-fluid">
 											<div class="hovereffect">
 												<span class="videohover"></span>
 											</div> <!-- end hover -->
@@ -192,8 +176,7 @@
 									<!-- end media -->
 									<div class="blog-meta">
 										<h4>
-											<a href="tech-single.html" title="">Both blood pressure
-												monitor and intelligent clock</a>
+											<a href="tech-single.html" title="">Nhân vật “số nhọ" nhất phim kiếm hiệp Kim Dung, tạo ra Cửu Âm Chân Kinh nhưng có cái kết bất ngờ</a>
 										</h4>
 									</div>
 									<!-- end meta -->
@@ -202,43 +185,8 @@
 							</div>
 							<!-- end videos -->
 						</div>
+						<!-- end widget -->		
 						<!-- end widget -->
-
-						<div class="widget">
-							<h2 class="widget-title">Popular Posts</h2>
-							<div class="blog-list-widget">
-								<div class="list-group">
-									<a href="tech-single.html"
-										class="list-group-item list-group-item-action flex-column align-items-start">
-										<div class="w-100 justify-content-between">
-											<img src="upload/tech_blog_08.jpg" alt=""
-												class="img-fluid float-left">
-											<h5 class="mb-1">5 Beautiful buildings you need..</h5>
-											<small>12 Jan, 2016</small>
-										</div>
-									</a> <a href="tech-single.html"
-										class="list-group-item list-group-item-action flex-column align-items-start">
-										<div class="w-100 justify-content-between">
-											<img src="upload/tech_blog_01.jpg" alt=""
-												class="img-fluid float-left">
-											<h5 class="mb-1">Let's make an introduction for..</h5>
-											<small>11 Jan, 2016</small>
-										</div>
-									</a> <a href="tech-single.html"
-										class="list-group-item list-group-item-action flex-column align-items-start">
-										<div class="w-100 last-item justify-content-between">
-											<img src="upload/tech_blog_03.jpg" alt=""
-												class="img-fluid float-left">
-											<h5 class="mb-1">Did you see the most beautiful..</h5>
-											<small>07 Jan, 2016</small>
-										</div>
-									</a>
-								</div>
-							</div>
-							<!-- end blog-list -->
-						</div>
-						<!-- end widget -->
-
 						<div class="widget">
 							<h2 class="widget-title">Recent Reviews</h2>
 							<div class="blog-list-widget">

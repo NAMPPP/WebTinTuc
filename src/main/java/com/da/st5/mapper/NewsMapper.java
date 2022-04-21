@@ -15,7 +15,7 @@ public class NewsMapper implements RowMapper<NewsModel> {
 					+ " from news ";
 	public static final String BASE_SQL_GB = //
 			"Select * "//
-					+ " from news GROUP BY createddate DESC";
+					+ " from news ORDER BY createddate DESC";
 	
 	@Override
 	public NewsModel mapRow(ResultSet rs, int rowNum) throws SQLException {

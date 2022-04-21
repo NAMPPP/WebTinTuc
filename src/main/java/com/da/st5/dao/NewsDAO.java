@@ -27,7 +27,6 @@ public class NewsDAO extends JdbcDaoSupport{
 
         Object[] params = new Object[] {};
         NewsMapper mapper = new NewsMapper();
-
         List<NewsModel> list = this.getJdbcTemplate().query(sql, params, mapper);
         return list;
     }
@@ -59,14 +58,6 @@ public class NewsDAO extends JdbcDaoSupport{
         return list;
     }
     
-    public void update(int id) {
-        String sql = NewsMapper.BASE_SQL_GB ;
-
-        Object[] params = new Object[] {};
-        NewsMapper mapper = new NewsMapper();
-
-        NewsModel list = (NewsModel) this.getJdbcTemplate().query(sql, params, mapper);
-    }
     public int addNews(NewsModel news) {
     	
         String sql = "INSERT INTO news(id,title,thumbnail,shortdescription,content,categoryid,createddate,createdby) "
@@ -75,6 +66,17 @@ public class NewsDAO extends JdbcDaoSupport{
         int insert = this.getJdbcTemplate().update(sql);
         return insert;
     }
+    public int update(NewsModel news){    
+        String sql="update news set title='"+news.getTitle()+"', thumbnail="+news.getThumbnail()+",shortdescription='"+news.getShortDescription()+"',"
+        		+ "content='"+news.getContent()+"' where id="+news.getId()+"";
+        int insert = this.getJdbcTemplate().update(sql);
+        return insert;    
+    }    
+    public int delete(int id){    
+        String sql="delete from news where id="+id+"";    
+        int insert = this.getJdbcTemplate().update(sql);
+        return insert;    
+    }    
 
 
     

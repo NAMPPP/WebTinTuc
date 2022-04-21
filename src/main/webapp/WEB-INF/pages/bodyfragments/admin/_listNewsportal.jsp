@@ -71,7 +71,7 @@
 										class="fas fa-folder"> </i> View
 								</a> <a class="btn btn-info btn-sm" href="/ST5/adminPage/listNewsportal/detail/${news.id}/"> <i
 										class="fas fa-pencil-alt"> </i> Edit
-								</a> <a class="btn btn-danger btn-sm" href="#"> <i
+								</a> <a class="btn btn-danger btn-sm" href="/ST5/adminPage/listNewsportal/delete/${news.id}/"> <i
 										class="fas fa-trash"> </i> Delete
 								</a></td>
 							</tr>

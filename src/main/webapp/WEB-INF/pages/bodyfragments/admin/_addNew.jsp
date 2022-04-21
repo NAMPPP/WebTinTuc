@@ -93,12 +93,12 @@
 						<div class="form-group">
 							<label for="title">CreatedBy</label>
 							
-							<form:label class="form-control" id="createdBy" path="createdBy"></form:label>
+							<form:input type="label" value="${AdminInfo.userName}" class="form-control" id="createdBy" path="createdBy"/>
 						</div>
 						<!-- /.card-body -->
 
 						<div class="card-footer">
-							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="submit" class="btn btn-primary" >Submit</button>
 						</div>
 				</form:form>
 			</div>

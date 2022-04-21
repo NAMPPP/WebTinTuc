@@ -39,9 +39,9 @@
 						</ul>
 					</li>
 					<li class="nav-item"><a class="nav-link"
-						href="tech-category-02.html">Videos</a></li>
+						href="#">Videos</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="tech-category-03.html">Reviews</a></li>
+						href="#">Reviews</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="/ST5/contactusPage/">Contact Us</a></li>
 				</ul>

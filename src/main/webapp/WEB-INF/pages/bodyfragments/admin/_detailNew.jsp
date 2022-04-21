@@ -33,8 +33,8 @@
 				<form:form action="../updateNew/" modelAttribute="updateNews" method="POST">
 					<div class="card-body">
 						<div class="form-group">
-							<label for="id">ID</label> <label
-								type="label" class="form-control" id="id">${news.id}</label>
+							<label for="id">ID</label>
+							<form:label type="label" class="form-control" id="id" path="id">${news.id}</form:label>
 						</div>
 						<div class="form-group">
 							<label for="title">Title</label> 
@@ -58,7 +58,8 @@
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body">
-									<form:textarea  value="" id="summernote" style="display: none;" path="content" />${news.content}
+									<textarea id="summernote" style="display: none;" path="content">${news.content}</textarea>
+									
 								</div>
 							</div>
 						</div>

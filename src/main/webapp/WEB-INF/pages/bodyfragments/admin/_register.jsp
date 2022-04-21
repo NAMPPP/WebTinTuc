@@ -91,7 +91,7 @@
 					</a>
 				</div>
 
-				<a href="login.html" class="text-center">I already have a
+				<a href="/ST5/loginPage/" class="text-center">I already have a
 					membership</a>
 			</div>
 			<!-- /.form-box -->

@@ -24,11 +24,9 @@ public class UserDAO extends JdbcDaoSupport{
     }
 
     public UserModel user(UserModel user) {
-        String sql = UserMapper.BASE_SQL+"WHERE username='"+user.getUserName()+"' and password='"+user.getPassword()+"'" ;
-
+        String sql = "Select * from user WHERE username='"+user.getUserName()+"' and password='"+user.getPassword()+"'" ;
         Object[] params = new Object[] {};
         UserMapper mapper = new UserMapper();
-
         List<UserModel> list = this.getJdbcTemplate().query(sql, params, mapper);
         return list.get(0);
     }
@@ -40,14 +38,12 @@ public class UserDAO extends JdbcDaoSupport{
         int insert = this.getJdbcTemplate().update(sql);
         return insert;
     }
-    public int getMaxId() {
-        String sql = "Select max(id) from user";
-
-        Integer value = this.getJdbcTemplate().queryForObject(sql, Integer.class);
-        if (value == null) {
-            return 0;
-        }
-        return value;
+    public List<UserModel> listUser(){
+        String sql = "Select * from user" ;
+        Object[] params = new Object[] {};
+        UserMapper mapper = new UserMapper();
+        List<UserModel> list = this.getJdbcTemplate().query(sql, params, mapper);
+        return list;
     }
 
 }
